@@ -68,14 +68,4 @@ src/main/java/com/api/Issue_Tracker_Api/
 └── exception/     # Global Error Handling
 ```
 
----
 
-### How to add this:
-1.  Create a file named `README.md` in your root folder (next to `pom.xml`).
-2.  Paste the content above.
-3.  Run the final Git commands:
-    ```bash
-    git add README.md
-    git commit -m "docs: add comprehensive readme"
-    git push origin main
-    ```
