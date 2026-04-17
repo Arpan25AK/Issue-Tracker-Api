@@ -60,7 +60,7 @@ public class IssueService {
         existingIssue.setStatus(requestDTO.getStatus());
         existingIssue.setPriority(requestDTO.getPriority());
 
-        issueRepo.save(existingIssue);
+        issueRepo.update(existingIssue);
 
         return mapToResponseDTO(existingIssue);
     }
