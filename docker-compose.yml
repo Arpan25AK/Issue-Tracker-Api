@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # --- 1. The MySQL Database ---
+  mysql-db:
+    image: mysql:8.0
+    container_name: issuetracker-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: issuetracker
+      MYSQL_USER: api_user
+      MYSQL_PASSWORD: api_password
+    ports:
+      - "3306:3306" # Exposes DB to your host machine so you can use MySQL Workbench
+    volumes:
+      - mysql-data:/var/lib/mysql # Persists data even if the container is destroyed
+    networks:
+      - issuetracker-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # --- 2. Your Spring Boot API ---
+  api-service:
+    build: .
+    container_name: issuetracker-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Crucial: We override application.yaml to use the container name ('mysql-db') instead of 'localhost'
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/issuetracker
+      SPRING_DATASOURCE_USERNAME: api_user
+      SPRING_DATASOURCE_PASSWORD: api_password
+    depends_on:
+      mysql-db:
+        condition: service_healthy # Waits for the DB healthcheck to pass
+    networks:
+      - issuetracker-network
+
+networks:
+  issuetracker-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

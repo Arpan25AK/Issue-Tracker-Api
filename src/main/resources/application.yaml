@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Issue-Tracker-Api
+  datasource:
+    url: jdbc:mysql://localhost:3306/issuetracker
+    username: root
+    password: your_mysql_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+
