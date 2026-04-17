@@ -3,8 +3,8 @@ spring:
     name: Issue-Tracker-Api
   datasource:
     url: jdbc:mysql://localhost:3306/issuetracker
-    username: root
-    password: your_mysql_password
+    username: api_user
+    password: api_password
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:

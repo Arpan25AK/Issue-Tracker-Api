@@ -25,13 +25,18 @@ public class IssuesController {
         return ResponseEntity.ok(issueService.getAllIssues());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<IssueResponseDTO> getById(@PathVariable String id){
+        return ResponseEntity.ok(issueService.getIssuedById(id));
+    }
+
     @PostMapping
     public ResponseEntity<IssueResponseDTO> createIssue(@Valid @RequestBody IssueRequestDTO requestDTO){
         IssueResponseDTO issues = issueService.createIssue(requestDTO);
         return new ResponseEntity<>(issues,HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/id/{id}")
     public ResponseEntity<IssueResponseDTO> updateIssue(@PathVariable String id, @RequestBody IssueRequestDTO requestDTO){
         IssueResponseDTO updatedIssue = issueService.updateIssue(id, requestDTO);
         return ResponseEntity.ok(updatedIssue);
