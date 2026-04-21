@@ -41,7 +41,7 @@ public class IssuesController {
         IssueResponseDTO updatedIssue = issueService.updateIssue(id, requestDTO);
         return ResponseEntity.ok(updatedIssue);
     }
-
+    //this method only deletes when the id matches to the given id
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable String id){
         issueService.DeleteIssueById(id);
